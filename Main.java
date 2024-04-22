@@ -1,49 +1,26 @@
 public class Main {
+    static final int[][] matrix = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    static int[][] transposedMatrix = new int[3][3];
 
     public static void main(String[] args) {
-        @SuppressWarnings("unused") // added to remove warnings
-        BurgerMain burgers = new BurgerMain();
-    }
-}
-
-@SuppressWarnings("unused")
-class BurgerMain {
-    private final Burger standartBurger;
-    private final Burger dietBurger;
-    private final Burger doubleMeatBurger;
-
-    public BurgerMain() {
-        this.standartBurger = new Burger();
-        this.dietBurger = new Burger(true, 1, true, true, false);
-        this.doubleMeatBurger = new Burger(true, 2, true, true, true);
-    }
-}
-
-@SuppressWarnings("unused")
-class Burger {
-    private final boolean buns;
-    private final int meatAmount;
-    private final boolean cheese;
-    private final boolean herbs;
-    private final boolean mayonnaise;
-
-    public Burger() {
-        this(true, 1, true, true, true);
+        System.out.println("\nInitial Matrix");
+        printMatrix(matrix, null);
+        System.out.println("\nTransposed Matrix");
+        printMatrix(matrix, transposedMatrix);
+        System.out.print("\n");
     }
 
-    public Burger(boolean buns, int meatAmount, boolean cheese, boolean herbs, boolean mayonnaise) {
-        this.buns = buns;
-        this.meatAmount = meatAmount;
-        this.cheese = cheese;
-        this.herbs = herbs;
-        this.mayonnaise = mayonnaise;
-
-        System.out.println("\n---Ingredients of Burger---");
-        System.out.println("  Buns: " + ((buns) ? "Present" : "Not present"));
-        System.out.println("  Meat: " + meatAmount + "x");
-        System.out.println("  Cheese: " + ((cheese) ? "Present" : "Not present"));
-        System.out.println("  Herbs: " + ((herbs) ? "Present" : "Not present"));
-        System.out.println("  Mayonnaise: " + ((mayonnaise) ? "Present" : "Not present"));
-        System.out.println("---------------------------\n");
+    public static void printMatrix(int[][] matrix, int[][] transposed) {
+        for(int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                    if(transposed != null) transposed[i][j] = matrix[j][i];
+                    System.out.print(((transposed != null) ? matrix[j][i] : matrix[i][j]) + " ");
+                }
+            System.out.print("\n");
+        }
     }
 }
