@@ -1,10 +1,13 @@
+import javafx.scene.paint.Color;
+
 public class Main {
     public static void main(String[] args) {
-        MusicStyles[] musicBands = new MusicStyles[]{new PopMusic("Blackpink"), 
-            new ClassicMusic("Beethoven"), new RockMusic("The Beatles")};
+        Car car = new Car(Color.BLUE, 1.6f, 4, CarBrand.VOLKSWAGEN);
+        Car lorry = new Car(Color.BLUE, 1.6f, 4, CarBrand.VOLKSWAGEN);
+        Car truck = new Car(Color.WHITE, 2.5f, 6, CarBrand.MERCEDES_BENZ);
 
-        for(MusicStyles musicBand : musicBands) {
-            musicBand.playMusic();
-        }
+        System.out.println(car.equals(lorry));
+        System.out.println(car.equals(truck));
+        System.out.println(lorry.equals(truck));
     }
 }
