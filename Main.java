@@ -1,38 +1,29 @@
-import java.util.Arrays;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+
 
 public class Main {
     static final ThreadLocalRandom random = ThreadLocalRandom.current();
+    static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int[] team1 = fillArrayRandom(new int[5]);
-        int[] team2 = random.ints(5, 18, 40).toArray();
+        for (int i = 0; i < 3; i++) {
+            boolean guessed = guessNumber();
+            System.out.println((guessed) ? "You won the game" : "You didn't guess the number");
+            if(guessed) break;
+        }
 
-        printArray("Team 1 players:", team1);
-        printArray("Team 2 players:", team2);
-        System.out.println("Team 1 average: " + calculateAverage(intToDoubleArray(team1)));
-        System.out.println("Team 2 average: " + calculateAverage(intToDoubleArray(team2)));
+        System.out.println("Press \"ENTER\" to continue...");
+        scanner.nextLine();
+
+        for(int i = 0; i < 100; i++) if(!Integer.toString(i).contains("4") && !Integer.toString(i).contains("9")) System.out.println(i);
     }
 
-    public static int[] fillArrayRandom(int[] array) {
-        for (int i = 0; i < array.length; i++) array[i] = random.nextInt(18, 40);
-        return array;
-    }
-
-    public static void printArray(String prompt, int[] array) {
-        System.out.println((prompt == null) ? "" : prompt + " " + 
-            Arrays.toString(array).replace('[', '\0').replace(']', '\0'));
-    }
-
-    public static double calculateAverage(double... args) {
-        double result = 0;
-        for (double d : args) result += d;
-        return result / args.length;
-    }
-
-    public static double[] intToDoubleArray(int[] array) {
-        double[] result = new double[array.length];
-        for (int i = 0; i < array.length; i++) result[i] = (double) array[i];
-        return result;
+    public static boolean guessNumber() {
+        System.out.print("Enter the number (0-10): ");
+        int chosenNumber = random.nextInt(0, 10 + 1);
+        boolean guessed = (scanner.nextInt() == chosenNumber);
+        System.out.println("The number was " + chosenNumber);
+        return guessed;
     }
 }
