@@ -1,19 +1,28 @@
 package com.wardendev.hillelproject;
 
-import com.wardendev.hillelproject.person.Person;
-import com.wardendev.hillelproject.person.PersonsList;
+import java.util.Scanner;
+
+import com.wardendev.hillelproject.action.ExitAction;
+import com.wardendev.hillelproject.action.UserAction;
+import com.wardendev.hillelproject.shapes.*;
 
 public class Main {
-    static PersonsList list = new PersonsList();
 
     public static void main(String[] args) {
-        list.add(new Person(1001, "Steve"));
-        list.add(new Person(1021, "Joseph"));
-        list.add(new Person(1101, "Bob"));
-        list.add(new Person(1401, "Emily"));
-        list.add(new Person(1901, "Karl"));
-        list.add(new Person(2011, "John"));
+        final Scanner scanner = new Scanner(System.in);
+        UserAction[] userActions = new UserAction[] {
+                new Circle(scanner),
+                new Rectangle(scanner),
+                new Triangle(scanner),
+                new ExitAction()
+        };
 
-        list.printArray();
+        for (int i = 0; i < userActions.length; i++) System.out.println(i + 1 + " " + userActions[i].getActionName());
+
+        System.out.print("Choose menu action: ");
+        int choice = scanner.nextInt() - 1;
+
+        if (choice >=0 && choice < userActions.length) userActions[choice].doAction();
+        else System.err.println("You chose an invalid menu action!");
     }
 }
