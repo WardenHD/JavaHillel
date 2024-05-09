@@ -2,27 +2,35 @@ package com.wardendev.hillelproject;
 
 import java.util.Scanner;
 
-import com.wardendev.hillelproject.action.ExitAction;
-import com.wardendev.hillelproject.action.UserAction;
-import com.wardendev.hillelproject.shapes.*;
+import com.wardendev.hillelproject.contact.*;
+import com.wardendev.hillelproject.menu.AddContactMenuAction;
+import com.wardendev.hillelproject.menu.ChangePhoneNumberMenuAction;
+import com.wardendev.hillelproject.menu.ExitMenuAction;
+import com.wardendev.hillelproject.menu.IMenuAction;
+import com.wardendev.hillelproject.menu.Menu;
+import com.wardendev.hillelproject.menu.RemoveContactMenuAction;
+import com.wardendev.hillelproject.menu.ShowContactsMenuAction;
 
 public class Main {
-
     public static void main(String[] args) {
-        final Scanner scanner = new Scanner(System.in);
-        UserAction[] userActions = new UserAction[] {
-                new Circle(scanner),
-                new Rectangle(scanner),
-                new Triangle(scanner),
-                new ExitAction()
+        Scanner scanner = new Scanner(System.in);
+
+        Contact contact1 = new Contact("Nikita", "+380633285455");
+        Contact contact2 = new Contact("Ivan", "+35766023354");
+        InMemoryContacts.add(contact1);
+        InMemoryContacts.add(contact2);
+
+        IMenuAction[] actions = new IMenuAction[]{
+            new AddContactMenuAction(scanner),
+            new RemoveContactMenuAction(scanner),
+            new ChangePhoneNumberMenuAction(scanner),
+            new ShowContactsMenuAction(),
+            new ExitMenuAction()
         };
 
-        for (int i = 0; i < userActions.length; i++) System.out.println(i + 1 + " " + userActions[i].getActionName());
+        Menu menu = new Menu(scanner);
+        for (IMenuAction action : actions) menu.addAction(action);
 
-        System.out.print("Choose menu action: ");
-        int choice = scanner.nextInt() - 1;
-
-        if (choice >=0 && choice < userActions.length) userActions[choice].doAction();
-        else System.err.println("You chose an invalid menu action!");
+        menu.run();
     }
 }
