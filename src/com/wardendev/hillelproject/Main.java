@@ -1,35 +1,34 @@
 package com.wardendev.hillelproject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import com.wardendev.hillelproject.customer.*;
 
 public class Main {
     public static void main(String[] args) {
+        Map<Integer, Customer> customerMap = new HashMap<>();
 
-        // I used slightly different method because I work with Java 8
-        ArrayList<Student> students = new ArrayList<>(Arrays.asList(
-            new Student("Alice", 23, 12),
-            new Student("Bob", 22, 7),
-            new Student("Charlie", 25, 9),
-            new Student("David", 11, 7),
-            new Student("Eve", 6, 1)
-        ));
+        List<CustomerWithId> customers = Arrays.asList(
+            new CustomerWithId(1, "John", "Doe"),
+            new CustomerWithId(2, "Jane", "Doe"),
+            new CustomerWithId(3, "Alice", "Smith"),
+            new CustomerWithId(4, "Robert", "Smith")
+        );
 
-        List<Integer> evenNumbers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8)
-           .filter(x -> x % 2==0)
-           .collect(Collectors.toList());
+        customerMap.putAll(customers.stream().collect(Collectors.toMap(CustomerWithId::getId, Customer::getCustomer)));
 
-        ArrayList<Student> studentsOld = new ArrayList<>(students.stream().filter(s -> s.getAge() > 22).collect(Collectors.toList()));
-        ArrayList<String> studentNames = new ArrayList<>(students.stream().map(s -> s.getName()).collect(Collectors.toList()));
+        System.out.println("Map Values: ");
+        customerMap.values().forEach(v -> System.out.println(v.toString()));
 
-        System.out.println(students);
-        System.out.println(evenNumbers);
-        System.out.println(studentsOld);
-        System.out.println(studentNames);
-        System.out.println("Sum: " + students.stream().map(s -> s.getAge()).reduce(0, Integer::sum));
+        System.out.println("\nMap Keys: ");
+        customerMap.keySet().forEach(System.out::println);
 
+        System.out.println("\nMap Keys and Values: ");
+        customerMap.forEach((k, v) -> System.out.println("Key: " + k + ", Value: " + v));
+        System.out.println();
     }
 }
