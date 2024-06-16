@@ -6,6 +6,6 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [],
     "java.dependency.packagePresentation": "hierarchical",
-    "java.project.explorer.showNonJavaResources": true,
+    "java.project.explorer.showNonJavaResources": false,
     "java.configuration.updateBuildConfiguration": "automatic"
 }
